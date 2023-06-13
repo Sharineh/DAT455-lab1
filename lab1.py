@@ -8,13 +8,13 @@ def tokenize(doc):
         
         i=0
         
-        while(i < len(line)):
+        while(i < len(line)) :
             
-            if line[i].isalpha():
+            if line[i].isalpha() :
                 
                 charLitst = []
                 
-                while line[i].isalpha() and i < len(line):
+                while  i < len(line) and line[i].isalpha() :
                     
                     charLitst.append(line[i])
                     i+=1
@@ -27,7 +27,7 @@ def tokenize(doc):
                 
                 digitList=[]
                 
-                while line[i].isdigit() and i < len(line):
+                while  i < len(line) and line[i].isdigit() :
                     
                     digitList.append(line[i])
                     
@@ -39,9 +39,7 @@ def tokenize(doc):
                 
             elif line[i].isspace():
                 
-                word = line[i]
-                
-                tokinzedList.append(word)
+                i+=1
                 
             else:
                 
@@ -49,7 +47,7 @@ def tokenize(doc):
                 
                 tokinzedList.append(word)
                 
-            i+=1
+                i+=1
         
     return tokinzedList
 
@@ -61,7 +59,8 @@ def main():
         '130 hampsters from the cancer labs down the hall, and',
         'at least 500 pounds of grape jello and unknown amounts of chopped liver"',
         'said the source on a recent Geraldo interview.']
- 
+    
+    
     print(tokenize(doc))
     
 
