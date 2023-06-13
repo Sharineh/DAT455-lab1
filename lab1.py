@@ -2,54 +2,102 @@ import sys
 
 def tokenize(doc):
     
-    tokinzedList=[]
+    ss=[]
     
+    tokenzidList=[]
+    numList = []
+    charList = []
+    
+    i=0
+
     for line in doc:
+    # Read lines in the file
+        words=line.split()
+    #print(line)
+    
+    #print(words)
+        for word in words:
         
-        i=0
+            # Read the words in the current line and add spaces to the speical characters
+            word = word.replace('"',' " ').replace(',',' , ').replace('.',' . ').replace('!',' ! ')
         
-        while(i < len(line)) :
+             # Convert the words to lowercase 
+            word=word.lower()
+            #print(word)
+        
+            ss.append(word)
+            #print(ss)
+        
+            str= ss[i].split()
+            #print(str)
+            j=0
+            if(str[0][j].isdigit()):
+                
+                while(j < len(str[0]) and str[0][j].isdigit()):
+                        
+                    numList.append(str[0][j])
+                            
+                    j+=1
+                        
+                tokenzidList.append(''.join(numList))
+                numList=[]
+                            
+                while(j < len(str[0]) and str[0][j].isalpha()):
+                        
+                    charList.append(str[0][j])
+                            
+                    j+=1
+                    
+                if(len(charList) > 0):
+                    
+                    tokenzidList.append(''.join(charList))
             
-            if line[i].isalpha() :
-                
-                charLitst = []
-                
-                while  i < len(line) and line[i].isalpha() :
-                    
-                    charLitst.append(line[i])
-                    i+=1
-                    
-                word = ''.join(charLitst)
-                
-                tokinzedList.append(word)
-                
-            elif line[i].isdigit():
-                
-                digitList=[]
-                
-                while  i < len(line) and line[i].isdigit() :
-                    
-                    digitList.append(line[i])
-                    
-                    i+=1
-                    
-                word = ''.join(digitList)
-                
-                tokinzedList.append(word)
-                
-            elif line[i].isspace():
-                
-                i+=1
+                charList=[]
                 
             else:
+            
+                tokenzidList.append(str[0])
                 
-                word = line[i]
-                
-                tokinzedList.append(word)
-                
-                i+=1
+            j=0
         
-    return tokinzedList
+            if len(str) > 1:
+            
+                if(str[0][j].isdigit()):
+                   
+                    while(j < len(str[1]) and str[1][j].isdigit()):
+                            
+                        if(str[1][j].isdigit()):
+                                
+                            numList.append(str[1][j])
+                        j+=1   
+                            
+                    numList.append(' ')
+                        
+                    tokenzidList.append(''.join(numList))
+                        
+                    numList = []
+                        
+                                
+                    while(j < len(str[1]) and str[0][j].isalpha()):
+                                    
+                        if(str[1][j].isdigit()):
+                                    
+                            charList.append(str[0][j])
+                        j+=1
+                                    
+                    charList.append(' ')
+                    
+                    if(len(charList) > 0 ):   
+                        
+                        tokenzidList.append(''.join(charList))
+                                
+                    charList=[]
+                else:     
+                    tokenzidList.append(str[1])
+            
+            i+=1
+            
+    return tokenzidList
 
 
 

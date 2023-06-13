@@ -1,6 +1,6 @@
 import sys
 
-def tokenize(doc):
+""" def tokenize(doc):
     
     ss=[]
     
@@ -97,7 +97,59 @@ def tokenize(doc):
             
             i+=1
             
-    return tokenzidList
+    return tokenzidList """
+    
+def tokenize(doc):
+    
+    tokinzedList=[]
+    
+    for line in doc:
+        
+        i=0
+        
+        while(i < len(line)) :
+            
+            if line[i].isalpha() :
+                
+                charLitst = []
+                
+                while  i < len(line) and line[i].isalpha() :
+                    
+                    charLitst.append(line[i])
+                    i+=1
+                    
+                word = ''.join(charLitst)
+                word = word.lower()
+                
+                tokinzedList.append(word)
+                
+            elif line[i].isdigit():
+                
+                digitList=[]
+                
+                while  i < len(line) and line[i].isdigit() :
+                    
+                    digitList.append(line[i])
+                    
+                    i+=1
+                    
+                word = ''.join(digitList)
+                
+                tokinzedList.append(word)
+                
+            elif line[i].isspace():
+                
+                i+=1
+                
+            else:
+                
+                word = line[i]
+                
+                tokinzedList.append(word)
+                
+                i+=1
+        
+    return tokinzedList
 
 def main():
     
