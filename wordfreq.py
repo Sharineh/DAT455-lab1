@@ -4,65 +4,130 @@ import sys
     
 def tokenize(doc):
     
-    tokinzedList=[]
+    tokenizedList=[]
     
-    for line in doc:
+    for row in doc:
+        
+        row=row.rstrip()
         
         i=0
         
-        while(i < len(line)) :
+        while(i < len(row)) :
             
-            if line[i].isalpha() :
+            if row[i].isalpha() :
                 
                 charLitst = []
                 
-                while  i < len(line) and line[i].isalpha() :
+                while  i < len(row) and row[i].isalpha() :
                     
-                    charLitst.append(line[i])
+                    charLitst.append(row[i])
+                    
                     i+=1
                     
                 word = ''.join(charLitst)
                 word = word.lower()
                 
-                tokinzedList.append(word)
+                tokenizedList.append(word)
                 
-            elif line[i].isdigit():
+            elif row[i].isdigit():
                 
                 digitList=[]
                 
-                while  i < len(line) and line[i].isdigit() :
+                while  i < len(row) and row[i].isdigit() :
                     
-                    digitList.append(line[i])
+                    digitList.append(row[i])
                     
                     i+=1
                     
                 word = ''.join(digitList)
                 
-                tokinzedList.append(word)
+                tokenizedList.append(word)
                 
-            elif line[i].isspace():
+            elif row[i].isspace():
                 
                 i+=1
                 
             else:
                 
-                word = line[i]
+                word = row[i]
                 
-                tokinzedList.append(word)
+                tokenizedList.append(word)
                 
                 i+=1
         
-    return tokinzedList
+    return tokenizedList
 
-def main():
+
+def countWords(words : list, stopWords : list) -> dict:
+    
+    dictionary = {}
+    
+    for word in words:
+    
+        if word not in stopWords:
+            
+            if word in dictionary:
+                
+                dictionary[word] += 1
+                
+            else:
+                
+                dictionary[word]=1
+                
+    return dictionary
+                
+
+def readStopWord():
+    
+    path = './eng_stopwords.txt'
+    
+    file = open(path,'r') 
+    
+    fileContent = file.read()
+    
+    return fileContent
+
+
+def printTopMost(dictionary : dict[str,int] , n : int) -> None :
+    
+     i = 0
+     
+     sortedDcit = dict(sorted(dictionary.items(), key = lambda x:-x[1] ))
+     
+     for word,freq in sortedDcit.items():
+         
+         if i == n:
+             
+             break
+         
+         else:
+             
+             print(word.ljust(20) + str(freq).rjust(5))
+             
+             i+=1
+
+
+""" def main():
     
     lines = ['"They had 16 rolls of duct tape, 2 bags of clothes pins',
              ',130 hampsters from the cancer labs down the hall, and',
              'at least 500 pounds of grape jello and unknown amounts of chopped liver"',
              'said the source on a recent Geraldo interview.']
     
-    print(tokenize(lines))
+   # print(tokenize(lines))
+    
+    stopWords = readStopWord()
+    
+    stringToCount = ['it','is','a','book','and','a','second','book','cover']
+    
+    wordCount = countWords(stringToCount,stopWords)
+    
+    #print(wordCount)
+    
+    printTopMost({'text': 9, 'word': 30, 'fiction': 6, 'count': 11, 'counting': 7, 'novel': 6},3)
+    
+    
     
     
 main()
-
+ """
